@@ -10,7 +10,8 @@ use ApiPlatform\Metadata\Post;
 use App\Controller\UserCreateAction;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ApiResource(
@@ -26,7 +27,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
     normalizationContext: ['groups'=>['user:read']],
     denormalizationContext: ['groups'=>['user:write']]
 )]
-class User
+class User implements PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
